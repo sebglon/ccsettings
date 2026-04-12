@@ -1,17 +1,12 @@
 {
-  "model": "opusplan",
   "permissions": {
     "additionalDirectories": [
-      "/home/sebastien/.config/superpowers/worktrees/notareview/feature-annotations/internal/api",
-      "/home/sebastien/.config/superpowers/worktrees/notareview/ui-anon-refactor/internal/api",
-      "/home/sebastien/.config/superpowers/worktrees/notareview/ui-anon-refactor/internal/web/static"
     ],
     "allow": [
-      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --days 7)"
     ]
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
   },
-  "autoCompactWindow": 200000
+  "autoCompactWindow": 150000
 }

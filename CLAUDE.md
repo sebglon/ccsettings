@@ -15,8 +15,11 @@
 - Use Read, Grep, Glob directly instead of spawning Agent for simple lookups (< 3 tool calls).
 - Never use Agent:Explore when a single Grep or Glob suffices.
 - Only use brainstorming/planning skills for complex multi-step tasks, not small fixes or edits.
-- Skip code-reviewer agent unless explicitly asked or at a major milestone.
+- Skip code-reviewer agent unless explicitly asked or at a major milestone (max 2-3 par feature).
 - When answering questions, give the answer first — no preamble, no restating the question.
+- **Haiku obligatoire** pour les subagents mécaniques : `model: "haiku"` sur TOUS les Agent calls pour boilerplate, tests unitaires, config, recherche de fichiers, lookups. Réserver Opus aux agents qui nécessitent du raisonnement complexe (architecture, debugging subtil).
+- **Max code-reviewer** : 1 par feature terminée, jamais en cours de développement. Ne pas invoquer le code-reviewer sur les étapes intermédiaires d'un plan.
+- **Limiter les skills** : ne pas invoquer brainstorming/writing-plans/executing-plans pour les tâches touchant < 3 fichiers.
 
 ## Workflow
 
