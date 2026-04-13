@@ -8,7 +8,7 @@
 - No sycophantic openers or closing fluff.
 - Keep solution simple and direct.
 - User instructions always override this file.
-- Respond in French unless asked otherwise.
+- Respond in English unless asked otherwise.
 
 ## Token Efficiency
 
