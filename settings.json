@@ -1,7 +1,9 @@
 {
   "permissions": {
-    "additionalDirectories": [],
-    "allow": []
+    "allow": [
+      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --help)"
+    ],
+    "additionalDirectories": []
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
