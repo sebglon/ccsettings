@@ -1,9 +1,7 @@
 {
   "permissions": {
-    "additionalDirectories": [
-    ],
-    "allow": [
-    ]
+    "additionalDirectories": [],
+    "allow": []
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true

@@ -17,11 +17,12 @@
 - Only use brainstorming/planning skills for complex multi-step tasks, not small fixes or edits.
 - Skip code-reviewer agent unless explicitly asked or at a major milestone (max 2-3 par feature).
 - When answering questions, give the answer first — no preamble, no restating the question.
-- **Haiku obligatoire** pour les subagents mécaniques : `model: "haiku"` sur TOUS les Agent calls pour boilerplate, tests unitaires, config, recherche de fichiers, lookups. Réserver Opus aux agents qui nécessitent du raisonnement complexe (architecture, debugging subtil).
+- **Sonnet par défaut** pour les subagents : `model: "sonnet"` sur TOUS les Agent calls (boilerplate, tests unitaires, config, recherche de fichiers, lookups). Réserver Opus aux agents qui nécessitent du raisonnement complexe (architecture, debugging subtil). Le quota Sonnet est séparé et sous-utilisé — en profiter.
 - **Max code-reviewer** : 1 par feature terminée, jamais en cours de développement. Ne pas invoquer le code-reviewer sur les étapes intermédiaires d'un plan.
 - **Limiter les skills** : ne pas invoquer brainstorming/writing-plans/executing-plans pour les tâches touchant < 3 fichiers.
 
 ## Workflow
 
-- **Worktrees obligatoires** : pour chaque plan ou tâche d'implémentation, utiliser un git worktree isolé (skill `superpowers:using-git-worktrees`) avant de commencer le code.
-- **Subagents Haiku** : utiliser `model: "haiku"` sur les Agent pour les tâches mécaniques (boilerplate, tests unitaires, config).
+- **Worktrees obligatoires** : pour chaque plan ou tâche d'implémentation, utiliser un git worktree isolé avant de commencer le code.
+- **Subagents Sonnet** : utiliser `model: "sonnet"` sur les Agent pour les tâches mécaniques (boilerplate, tests unitaires, config).
+- **Conversation principale en Sonnet** : commencer chaque session en `/fast` (Sonnet). Basculer en `/slow` (Opus) uniquement pour architecture complexe ou debugging subtil.
