@@ -14,40 +14,29 @@ Run the usage analysis script and present findings with recommendations.
 
 ## Steps
 
-1. Run the analysis script:
+1. Run the analysis script with `--llm` for pre-analyzed output:
 ```bash
-python3 ~/.claude/scripts/claude-usage-report.py --days 7
+python3 ~/.claude/scripts/claude-usage-report.py --days 7 --llm
 ```
+   Adjust `--days N` if the user specifies a different period.
 
-2. If the user asks for JSON output or deeper analysis:
-```bash
-python3 ~/.claude/scripts/claude-usage-report.py --days 7 --json
-```
+2. The `--llm` output already includes:
+   - Current settings context (model, autoCompactWindow)
+   - Cost breakdown with percentages and primary cost driver
+   - Daily trends table
+   - Top sessions ranked by **full cost** (including cache, not just input+output)
+   - Session durations and per-session cost driver
+   - Pre-computed analysis (session length impact, model usage, tool efficiency, skill overhead)
 
-3. After showing the report, provide **actionable recommendations** based on the data:
-
-### Common optimizations to suggest:
-
-**If cache read > 100M tokens:**
-- Lower `autoCompactWindow` in `~/.claude/settings.json` (e.g., from 500K to 200K)
-- Start fresh sessions instead of marathon conversations
-- Use `/clear` to reset context when switching topics
-
-**If subagent overhead > 30%:**
-- Use direct tool calls (Read, Grep, Glob) instead of Agent for simple lookups
-- Reduce code-reviewer agent frequency — only at major milestones
-- Avoid Agent for tasks that need < 3 tool calls
-
-**If skill invocations are high:**
-- Each Skill invocation injects a large prompt into context
-- Brainstorming/planning skills are useful but expensive — use for complex tasks only
-- Consider if the superpowers plugin is adding value proportional to its cost
-
-**If sessions are very long (>200 messages):**
-- Break work into focused sessions
-- Commit and start fresh when switching tasks
-- Use `/compact` to manually compress context mid-session
+3. Based on the report, provide **actionable recommendations** specific to the data:
+   - Cite exact numbers from the report (e.g., "10 long sessions = 89% of cost")
+   - Suggest concrete settings changes with current vs. proposed values
+   - Prioritize by impact (cost % saved)
 
 4. If the user wants to apply changes, help them edit `~/.claude/settings.json` directly.
 
-5. Remind the user to run this weekly: `/usage-report`
+5. Other output modes:
+   - `--json` for raw JSON (programmatic use)
+   - No flag for human-readable terminal output
+
+6. Pricing is hardcoded in the script — if costs look off, verify against https://docs.anthropic.com/en/docs/about-claude/models and update `PRICING` dict.

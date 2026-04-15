@@ -1,12 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --help)"
+      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --help)",
+      "Read(//Users/sebastien.glon/.claude/skills/ticket-planner/**)",
+      "Read(//Users/sebastien.glon/.agents/skills/ticket-planner/**)",
+      "Read(//Users/sebastien.glon/.agents/skills/ticket-quality/**)",
+      "Read(//Users/sebastien.glon/.agents/skills/requirements-review/**)",
+      "mcp__Atlassian__createJiraIssue",
+      "Bash(kubectl --context=teleport.services.ubble.ai-staging-b get clusterrole iamra-automatic-worker -o yaml)",
+      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --days 3)"
     ],
     "additionalDirectories": []
   },
+  "model": "opus[1m]",
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
   },
+  "effortLevel": "medium",
   "autoCompactWindow": 150000
 }
