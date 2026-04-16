@@ -1,14 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --help)",
-      "Read(//Users/sebastien.glon/.claude/skills/ticket-planner/**)",
-      "Read(//Users/sebastien.glon/.agents/skills/ticket-planner/**)",
-      "Read(//Users/sebastien.glon/.agents/skills/ticket-quality/**)",
-      "Read(//Users/sebastien.glon/.agents/skills/requirements-review/**)",
-      "mcp__Atlassian__createJiraIssue",
-      "Bash(kubectl --context=teleport.services.ubble.ai-staging-b get clusterrole iamra-automatic-worker -o yaml)",
-      "Bash(python3 ~/.claude/scripts/claude-usage-report.py --days 3)"
+      "Bash(python3 ~/.claude/scripts/claude-usage-report.py:*)",
+      "Bash(echo \"exit:$?\")",
+      "Read(//home/sebastien/git-repo/notareview-admin-reanon/pkg/ml/**)"
     ],
     "additionalDirectories": []
   },
@@ -16,6 +11,22 @@
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
   },
-  "effortLevel": "medium",
-  "autoCompactWindow": 150000
+  "autoCompactWindow": 150000,
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/hook-go-check.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/scripts/hook-python-check.sh"
+          }
+        ]
+      }
+    ]
+  }
 }

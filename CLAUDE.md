@@ -12,17 +12,24 @@
 
 ## Token Efficiency
 
+**Model selection — use the right model for the task:**
+- Subagents: use `model: "sonnet"` by default. Use Opus only for architecture decisions, complex debugging (>5 files), or security review.
+- Main conversation: Opus is fine for complex work (specs, architecture, multi-file refactors). Use /fast (Sonnet) for routine tasks (simple edits, lookups, test fixes).
+- Don't overthink model choice — quality matters more than marginal token savings.
+
+**Direct tools over agents:**
 - Use Read, Grep, Glob directly instead of spawning Agent for simple lookups (< 3 tool calls).
 - Never use Agent:Explore when a single Grep or Glob suffices.
-- Only use brainstorming/planning skills for complex multi-step tasks, not small fixes or edits.
-- Skip code-reviewer agent unless explicitly asked or at a major milestone (max 2-3 par feature).
-- When answering questions, give the answer first — no preamble, no restating the question.
-- **Sonnet par défaut** pour les subagents : `model: "sonnet"` sur TOUS les Agent calls (boilerplate, tests unitaires, config, recherche de fichiers, lookups). Réserver Opus aux agents qui nécessitent du raisonnement complexe (architecture, debugging subtil). Le quota Sonnet est séparé et sous-utilisé — en profiter.
-- **Max code-reviewer** : 1 par feature terminée, jamais en cours de développement. Ne pas invoquer le code-reviewer sur les étapes intermédiaires d'un plan.
-- **Limiter les skills** : ne pas invoquer brainstorming/writing-plans/executing-plans pour les tâches touchant < 3 fichiers.
+- Max 1 code-reviewer per completed feature, never mid-development.
+
+**Session hygiene (biggest cost lever):**
+- Suggest starting a fresh session after ~150 messages or when switching to a different task.
+- Long sessions (>200 messages) cause exponential cache read costs.
+
+**Skills:**
+- Use brainstorming/writing-plans for multi-step tasks (>3 files) — they improve quality.
+- Skip them for trivial changes, but don't avoid them when they'd genuinely help.
 
 ## Workflow
 
-- **Worktrees obligatoires** : pour chaque plan ou tâche d'implémentation, utiliser un git worktree isolé avant de commencer le code.
-- **Subagents Sonnet** : utiliser `model: "sonnet"` sur les Agent pour les tâches mécaniques (boilerplate, tests unitaires, config).
-- **Conversation principale en Sonnet** : commencer chaque session en `/fast` (Sonnet). Basculer en `/slow` (Opus) uniquement pour architecture complexe ou debugging subtil.
+- **Worktrees are mandatory**: for every plan or implementation task, use an isolated git worktree before starting any code.
